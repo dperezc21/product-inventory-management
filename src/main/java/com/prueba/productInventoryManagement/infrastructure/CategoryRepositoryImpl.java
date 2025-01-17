@@ -23,4 +23,9 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     public List<Category> getCategories() {
         return (List<Category>) this.categoryDBRepository.findAll();
     }
+
+    @Override
+    public Category getCategoryById(Long categoryId) {
+        return this.categoryDBRepository.findById(categoryId).orElse(null);
+    }
 }
