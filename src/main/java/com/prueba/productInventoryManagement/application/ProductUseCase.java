@@ -1,5 +1,6 @@
 package com.prueba.productInventoryManagement.application;
 
+import com.prueba.productInventoryManagement.domain.ProductBody;
 import com.prueba.productInventoryManagement.domain.exceptions.CategoryNotFound;
 import com.prueba.productInventoryManagement.domain.exceptions.ProductNotFound;
 import com.prueba.productInventoryManagement.domain.models.Category;
@@ -38,18 +39,28 @@ public class ProductUseCase {
         this.productRepository.updateProduct(getProduct);
     }
 
-    public Product getProductById(Long productId) throws ProductNotFound {
+    private Product getProductById(Long productId) throws ProductNotFound {
         Product findProduct = this.productRepository.getProduct(productId);
         if(findProduct == null) throw new ProductNotFound("product not exists");
         return findProduct;
     }
 
-    public List<Product> getAllProducts() {
-        return this.productRepository.getAllProducts();
+    public List<ProductBody> getAllProducts() {
+        return this.productRepository.getAllProducts().stream().map(ProductUseCase::mapProduct).toList();
     }
 
     public void deleteProduct(Long productId) throws ProductNotFound {
         Product findProduct = this.getProductById(productId);
         this.productRepository.deleteProduct(findProduct.getProductId());
+    }
+
+    public static ProductBody mapProduct(Product product) {
+        ProductBody productBody = new ProductBody();
+        productBody.setId(product.getProductId());
+        productBody.setProductName(product.getName());
+        productBody.setStock(product.getStockQuantity());
+        productBody.setProductPrice(product.getPrice());
+        productBody.setCategoryName(product.getCategory().getCategoryName());
+        return productBody;
     }
 }
