@@ -26,6 +26,6 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "product_category_id")
-    private ProductCategory category;
+    private Category category;
 
 }
