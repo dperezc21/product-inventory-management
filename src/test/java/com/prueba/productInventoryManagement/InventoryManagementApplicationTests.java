@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ProductInventoryManagementApplicationTests {
+class InventoryManagementApplicationTests {
 
 	@Test
 	void contextLoads() {
