@@ -1,5 +1,6 @@
 package com.prueba.productInventoryManagement.application;
 
+import com.prueba.productInventoryManagement.domain.CategoryBody;
 import com.prueba.productInventoryManagement.domain.models.Category;
 import com.prueba.productInventoryManagement.domain.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,14 @@ public class CategoryUseCase {
         repository.save(categoryToCreate);
     }
 
-    public List<Category> getAllCategories() {
-        return this.repository.getCategories();
+    public List<CategoryBody> getAllCategories() {
+        return this.repository.getCategories().stream().map(CategoryUseCase::mapCategory).toList();
+    }
+
+    public static CategoryBody mapCategory(Category category) {
+        CategoryBody categoryResponse = new CategoryBody();
+        categoryResponse.setId(category.getCategoryId());
+        categoryResponse.setCategoryName(category.getCategoryName());
+        return categoryResponse;
     }
 }
