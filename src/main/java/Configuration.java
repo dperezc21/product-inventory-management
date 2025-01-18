@@ -1,5 +1,3 @@
-package com.prueba.productInventoryManagement;
-
 import com.prueba.productInventoryManagement.application.CategoryUseCase;
 import com.prueba.productInventoryManagement.application.ProductUseCase;
 import org.springframework.context.annotation.Bean;
