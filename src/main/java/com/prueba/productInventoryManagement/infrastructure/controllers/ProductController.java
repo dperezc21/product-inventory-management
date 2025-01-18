@@ -22,7 +22,7 @@ public class ProductController {
     @PostMapping
     public ResponseEntity<String> saveProduct(@RequestBody ProductBody product) {
         try {
-            this.productUseCase.createProduct(product.getProductName(), product.getStock(), product.getProductPrice(), product.getCategoryId());
+            this.productUseCase.createProduct(product.getProductName(), product.getStock(), product.getProductPrice(), product.getCategory().getId());
         } catch (CategoryNotFound e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -32,7 +32,7 @@ public class ProductController {
     @PutMapping(path = "/{productId}")
     public ResponseEntity<String> updateProduct(@PathVariable Long productId, @RequestBody ProductBody product) {
         try {
-            this.productUseCase.updateProduct(productId, product.getProductName(), product.getStock(), product.getProductPrice(), product.getCategoryId());
+            this.productUseCase.updateProduct(productId, product.getProductName(), product.getStock(), product.getProductPrice(), product.getCategory().getId());
         } catch (ProductNotFound | CategoryNotFound e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

@@ -10,6 +10,5 @@ public class ProductBody {
     private String productName;
     private Integer stock;
     private Double productPrice;
-    private Long categoryId;
-    private String categoryName;
+    private CategoryBody category;
 }

@@ -1,5 +1,6 @@
 package com.prueba.productInventoryManagement.application;
 
+import com.prueba.productInventoryManagement.domain.CategoryBody;
 import com.prueba.productInventoryManagement.domain.ProductBody;
 import com.prueba.productInventoryManagement.domain.exceptions.CategoryNotFound;
 import com.prueba.productInventoryManagement.domain.exceptions.ProductNotFound;
@@ -25,6 +26,7 @@ public class ProductUseCase {
         Category getCategory = this.categoryRepository.getCategoryById(categoryId);
         if(getCategory == null) throw new CategoryNotFound("category not exists");
         Product product = new Product(productName, price, stock, getCategory);
+        System.out.println(product.getProductId());
         this.productRepository.save(product);
     }
 
@@ -60,7 +62,7 @@ public class ProductUseCase {
         productBody.setProductName(product.getName());
         productBody.setStock(product.getStockQuantity());
         productBody.setProductPrice(product.getPrice());
-        productBody.setCategoryName(product.getCategory().getCategoryName());
+        productBody.setCategory(new CategoryBody(product.getCategory().getCategoryId(), product.getCategory().getCategoryName()));
         return productBody;
     }
 }
