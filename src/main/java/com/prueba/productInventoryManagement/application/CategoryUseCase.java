@@ -14,10 +14,10 @@ public class CategoryUseCase {
     @Autowired
     private CategoryRepository repository;
 
-    public void createCategory(String categoryName) {
+    public Long createCategory(String categoryName) {
         Category categoryToCreate = new Category();
         categoryToCreate.setCategoryName(categoryName);
-        repository.save(categoryToCreate);
+        return repository.save(categoryToCreate);
     }
 
     public List<CategoryBody> getAllCategories() {

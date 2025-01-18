@@ -20,13 +20,15 @@ public class ProductController {
     private ProductUseCase productUseCase;
 
     @PostMapping
-    public ResponseEntity<String> saveProduct(@RequestBody ProductBody product) {
+    public ResponseEntity<ProductBody> saveProduct(@RequestBody ProductBody product) {
         try {
-            this.productUseCase.createProduct(product.getProductName(), product.getStock(), product.getProductPrice(), product.getCategory().getId());
+            Long productId = this.productUseCase.createProduct(product.getProductName(), product.getStock(), product.getProductPrice(), product.getCategory().getId());
+            if(productId == null) ResponseEntity.ok("product not created");
+            product.setId(productId);
         } catch (CategoryNotFound e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(null);
         }
-        return ResponseEntity.ok("product created");
+        return ResponseEntity.ok(product);
     }
 
     @PutMapping(path = "/{productId}")

@@ -15,8 +15,8 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     private CategoryDBRepository categoryDBRepository;
 
     @Override
-    public void save(Category category) {
-        this.categoryDBRepository.save(category);
+    public Long save(Category category) {
+        return this.categoryDBRepository.save(category).getCategoryId();
     }
 
     @Override

@@ -15,8 +15,8 @@ public class ProductRepositoryImpl implements ProductRepository {
     private ProductDBRepository productDBRepository;
 
     @Override
-    public void save(Product product) {
-        this.productDBRepository.save(product);
+    public Long save(Product product) {
+        return this.productDBRepository.save(product).getProductId();
     }
 
     @Override

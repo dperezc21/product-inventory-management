@@ -21,13 +21,15 @@ public class CategoryController {
     private CategoryUseCase categoryUseCase;
 
     @PostMapping
-    public ResponseEntity<String> createCategory(@RequestBody CategoryBody category) {
+    public ResponseEntity<CategoryBody> createCategory(@RequestBody CategoryBody category) {
         try {
-            this.categoryUseCase.createCategory(category.getCategoryName());
+            Long categoryId = this.categoryUseCase.createCategory(category.getCategoryName());
+            if(categoryId == null) ResponseEntity.ok(null);
+            category.setId(categoryId);
         } catch (Exception e) {
-            return ResponseEntity.internalServerError().body("Error while create category, try again");
+            return ResponseEntity.internalServerError().body(null); //"Error while create category, try again"
         }
-        return ResponseEntity.ok("category created");
+        return ResponseEntity.ok(category);
     }
 
     @GetMapping(path = "/all")

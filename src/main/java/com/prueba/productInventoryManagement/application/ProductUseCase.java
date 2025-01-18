@@ -22,12 +22,11 @@ public class ProductUseCase {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public void createProduct(String productName, Integer stock, Double price, Long categoryId) throws CategoryNotFound {
+    public Long createProduct(String productName, Integer stock, Double price, Long categoryId) throws CategoryNotFound {
         Category getCategory = this.categoryRepository.getCategoryById(categoryId);
         if(getCategory == null) throw new CategoryNotFound("category not exists");
         Product product = new Product(productName, price, stock, getCategory);
-        System.out.println(product.getProductId());
-        this.productRepository.save(product);
+        return this.productRepository.save(product);
     }
 
     public void updateProduct(Long productId, String productName, Integer stock, Double price, Long categoryId) throws CategoryNotFound, ProductNotFound {
