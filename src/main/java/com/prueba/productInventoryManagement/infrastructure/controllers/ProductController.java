@@ -45,7 +45,7 @@ public class ProductController {
 
     @GetMapping(path = "/all")
     public ResponseEntity<List<ProductBody>> getProducts() {
-        List<ProductBody> productBodyList = new ArrayList<>();
+        List<ProductBody> productBodyList;
         try {
             productBodyList = this.productUseCase.getAllProducts();
         } catch (Exception e) {

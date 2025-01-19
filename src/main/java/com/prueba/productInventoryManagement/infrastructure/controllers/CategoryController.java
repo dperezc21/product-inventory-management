@@ -32,7 +32,7 @@ public class CategoryController {
 
     @GetMapping(path = "/all")
     public ResponseEntity<List<CategoryBody>> getAllCategories() {
-        List<CategoryBody> categories = new ArrayList<>();
+        List<CategoryBody> categories;
         try {
             categories = this.categoryUseCase.getAllCategories();
         } catch (Exception e) {
