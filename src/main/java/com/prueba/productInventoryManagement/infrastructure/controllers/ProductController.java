@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -34,13 +33,13 @@ public class ProductController {
     }
 
     @PutMapping(path = "/{productId}")
-    public ResponseEntity<String> updateProduct(@PathVariable Long productId, @RequestBody ProductBody product) {
+    public ResponseEntity<GenericResponse<String>> updateProduct(@PathVariable Long productId, @RequestBody ProductBody product) {
         try {
             this.productUseCase.updateProduct(productId, product.getProductName(), product.getStock(), product.getProductPrice(), product.getCategory().getId());
         } catch (ProductNotFound | CategoryNotFound e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(new GenericResponse<>(e.getMessage(), null));
         }
-        return ResponseEntity.ok("product updated");
+        return ResponseEntity.ok(new GenericResponse<>("product updated", null));
     }
 
     @GetMapping(path = "/all")
