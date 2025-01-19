@@ -1,6 +1,7 @@
 package com.prueba.productInventoryManagement.infrastructure.controllers;
 
 import com.prueba.productInventoryManagement.application.ProductUseCase;
+import com.prueba.productInventoryManagement.domain.GenericResponse;
 import com.prueba.productInventoryManagement.domain.ProductBody;
 import com.prueba.productInventoryManagement.domain.exceptions.CategoryNotFound;
 import com.prueba.productInventoryManagement.domain.exceptions.ProductNotFound;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping(path = "/products")
+@CrossOrigin(origins = "*")
 public class ProductController {
 
     @Autowired
@@ -53,13 +55,13 @@ public class ProductController {
     }
 
     @DeleteMapping(path = "/{productId}")
-    public ResponseEntity<String> deleteProduct(@PathVariable Long productId) {
+    public ResponseEntity<GenericResponse<String>> deleteProduct(@PathVariable Long productId) {
         try {
             this.productUseCase.deleteProduct(productId);
         } catch (ProductNotFound e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(new GenericResponse<>(e.getMessage(), null));
         }
-        return ResponseEntity.ok("product deleted");
+        return ResponseEntity.ok(new GenericResponse<>("product deleted", null));
     }
 
 }
