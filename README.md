@@ -1,8 +1,8 @@
 # product-inventory-management
 
-project made in **spring boot** to store inventory product information in a **mysql** database,   
-and be able to update, delete and obtain all the saved products, in addition to being able to   
-create and use that category for each product.
+project made in **spring boot** to store information about inventory product in a **mysql** database,   
+and be able to update, delete and get all the saved products, in addition to being able to   
+create and use that category for a product.
 
 ### environment variables configuration to the database
 ```
@@ -15,5 +15,6 @@ create and use that category for each product.
 
 ### After execute the project the url is http://localhost:8080  
 
-#### you have access to project deployed with railway using this url: https://product-inventory-management-production.up.railway.app
+#### you have access to project deployed with railway using this url:  
+https://product-inventory-management-production.up.railway.app
 
